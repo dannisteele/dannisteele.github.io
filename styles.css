@@ -5,6 +5,7 @@ body {
     padding: 0;
     background-color: #3f1c71;
     text-align: center;
+    box-sizing: border-box;
 }
 
 /* Heading style */
@@ -21,6 +22,7 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 /* Label styles */
@@ -30,10 +32,10 @@ label {
 }
 
 /* Input and button styles */
-input,select,
-button {
+input, select, button {
     padding: 10px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 /* Button styles */
@@ -74,10 +76,11 @@ button:active {
     width: calc(25% - 10px);
     margin: 10px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 #result {
-    color:#fff;
+    color: #fff;
 }
 
 /* Footer styles */
@@ -89,6 +92,7 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+    box-sizing: border-box;
 }
 
 /* The code dependant on screen size */
@@ -108,8 +112,9 @@ footer {
         color: #fff;
         padding: 10px;
         text-align: center;
-        position: relative;
+        position: absolute;
         width: 100%;
         bottom: 0;
+        box-sizing: border-box;
     }
 }
