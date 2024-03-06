@@ -106,15 +106,4 @@ footer {
     #playerNames input {
         width: 80%;
     }
-
-    footer {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-        position: absolute;
-        width: 100%;
-        bottom: 0;
-        box-sizing: border-box;
-    }
 }
