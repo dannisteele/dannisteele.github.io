@@ -61,43 +61,46 @@ function startAllocation() {
 
 
 function allocateCountries() {
-    let playerNames = Array.from(playerNamesDiv.getElementsByTagName('input')).map(input => input.value.trim());
+    let playerInputs = Array.from(playerNamesDiv.getElementsByTagName('input'));
+    let playerNames = playerInputs.map(input => input.value.trim());
 
-    if (playerNames.every(name => name !== '')) {
-        let selectedYear = document.getElementById('csvFileInput').value;
-        readCSVFromPath(selectedYear).then(data => {
-            console.log(data); // Log the data to the console
+    // Check for empty names and assign default names if needed
+    playerNames = playerNames.map((name, index) => name !== '' ? name : `Player ${index + 1}`);
 
-            // Assuming the CSV structure: Country,Artist,Song
-            let countries = data.map(row => ({
-                name: row[0].trim(),
-                artist: row[1].trim(),
-                song: row[2].trim()
-            }));
+    let selectedYear = document.getElementById('csvFileInput').value;
+    readCSVFromPath(selectedYear).then(data => {
+        console.log(data);
 
-            // Simulate the allocation logic
-            let allocationResult = allocateCountriesSimulated(playerNames, countries);
+        let countries = data.map(row => ({
+            name: row[0].trim(),
+            artist: row[1].trim(),
+            song: row[2].trim()
+        }));
 
-            // Display the result
-            resultDiv.innerHTML = `<h2>Allocation Result:</h2>`;
-            for (let i = 0; i < allocationResult.length; i++) {
-                let formattedPlayerName = `***${playerNames[i].toUpperCase()}***`;
-                resultDiv.innerHTML += `<h3>${formattedPlayerName}</h3>`;
-                for (let country of allocationResult[i]) {
-                    resultDiv.innerHTML += `<p>${country}</p>`;
-                }
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML += `<br>`;
-                resultDiv.innerHTML += `<br>`;
+        if (playerNames.length > countries.length) {
+            // Display a warning message if there are more players than countries
+            alert('Warning: There are more players than countries. Some players will not receive a country.');
+        }
+
+        let allocationResult = allocateCountriesSimulated(playerNames, countries);
+
+        resultDiv.innerHTML = "";
+        for (let i = 0; i < allocationResult.length; i++) {
+            let formattedPlayerName = `***${playerNames[i].toUpperCase()}***`;
+            resultDiv.innerHTML += `<h3>${formattedPlayerName}</h3>`;
+            for (let country of allocationResult[i]) {
+                resultDiv.innerHTML += `<p>${country}</p>`;
             }
-        }).catch(error => {
-            console.error('Error reading CSV file:', error);
-            alert('Error reading CSV file. Please check the file path or URL.');
-        });
-    } else {
-        alert('Please enter names for all players.');
-    }
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML += `<br>`;
+            resultDiv.innerHTML += `<br>`;
+        }
+    }).catch(error => {
+        console.error('Error reading CSV file:', error);
+        alert('Error reading CSV file. Please check the file path or URL.');
+    });
 }
+
 
 
 // Simulated function, replace it with the actual logic in your Java code

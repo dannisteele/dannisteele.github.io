@@ -3,14 +3,21 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #3f1c71;
+    text-align: center;
+}
+
+/* Heading style */
+h1 {
+    text-align: center;
+    color: #1d0147;
 }
 
 /* Main container styles */
 .container {
     max-width: 800px;
     margin: 50px auto;
-    background-color: #fff;
+    background-color: #da40d6;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,35 +39,28 @@ button {
 /* Button styles */
 button {
     cursor: pointer;
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #f8fb00;
+    color: #000;
     border: none;
     border-radius: 4px;
 }
 
 /* Button hover styles */
 button:hover {
-    background-color: #45a049;
+    background-color: #21c0dc;
 }
 
+/* Button click style */
+button:active {
+    background-color: #17889c;
+}
+
+/* The allocate div */
 #allocate {
     display: none; /* Hide the div initially */
 }
 
-#allocate button {
-    cursor: pointer;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-#allocate button:hover {
-    background-color: #45a049;
-}
-
+/* The playerNames div */
 #playerNames {
     display: flex;
     flex-wrap: wrap;
@@ -71,21 +71,45 @@ button:hover {
 }
 
 #playerNames input {
-    width: calc(25% - 10px); /* Adjust the width based on your needs */
+    width: calc(25% - 10px);
     margin: 10px;
     text-align: center;
 }
 
+#result {
+    color:#fff;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* The code dependant on screen size */
 @media (max-width: 820px) {
     #playerNames input {
-        width: calc(25% - 10px); /* Adjust the width based on your needs */
-    }
-
-    body {
-        text-align: center;
+        width: 40%;
     }
 }
 
-#result {
-    text-align: center;
+@media (max-width: 480px) {
+    #playerNames input {
+        width: 80%;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        bottom: 0;
+    }
 }
