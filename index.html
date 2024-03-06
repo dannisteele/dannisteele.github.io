@@ -13,7 +13,7 @@
         <h1>Welcome to the Eurovision Allocator!</h1>
         <div id="playersInput">
             <label for="numOfPlayers">How many players?</label>
-            <input type="number" id="numOfPlayers" min="1" required>
+            <input type="number" pattern="[0-9]*" id="numOfPlayers" min="1" required>
             <label for="csvFileInput">Select year:</label>
             <select id="csvFileInput" accept=".csv">
                 <option value="1956">1956</option>
