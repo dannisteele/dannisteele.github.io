@@ -2,24 +2,6 @@ let numOfPlayersInput = document.getElementById('numOfPlayers');
 let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
 
-function readCSV(file) {
-    return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = (event) => {
-            let content = event.target.result;
-            let rows = content.split('\n');
-            let data = rows.map(row => {
-                let columns = row.split(',');
-                // Trim each column
-                return columns.map(col => col.trim());
-            });
-            resolve(data);
-        };
-        reader.onerror = reject;
-        reader.readAsText(file);
-    });
-}
-
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
     let fileInput = document.createElement('input');
@@ -55,10 +37,6 @@ function startAllocation() {
         alert('Number of players must be greater than 0. Please try again.');
     }
 }
-
-
-
-
 
 function allocateCountries() {
     let playerInputs = Array.from(playerNamesDiv.getElementsByTagName('input'));
@@ -101,9 +79,6 @@ function allocateCountries() {
     });
 }
 
-
-
-// Simulated function, replace it with the actual logic in your Java code
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -116,8 +91,6 @@ function allocateCountriesSimulated(playerNames, countries) {
 
     // Assuming each country has a name, artist, and song
     shuffleArray(countries);
-
-    console.log(countries); // Log the content of countries array
 
     let totalCountries = countries.length;
     let countriesPerPlayer = Math.floor(totalCountries / playerNames.length);
