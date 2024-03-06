@@ -81,15 +81,15 @@ function allocateCountries() {
             // Display the result
             resultDiv.innerHTML = `<h2>Allocation Result:</h2>`;
             for (let i = 0; i < allocationResult.length; i++) {
-                resultDiv.innerHTML += `<h3>${playerNames[i]}</h3>`;
-                resultDiv.innerHTML += `<ul>`;
+                let formattedPlayerName = `***${playerNames[i].toUpperCase()}***`;
+                resultDiv.innerHTML += `<h3>${formattedPlayerName}</h3>`;
                 for (let country of allocationResult[i]) {
-                    resultDiv.innerHTML += `<li>${country}</li>`;
+                    resultDiv.innerHTML += `<p>${country}</p>`;
                 }
-                resultDiv.innerHTML += `</ul>`;
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML += `<br>`;
+                resultDiv.innerHTML += `<br>`;
             }
-
-            resultDiv.style.display = 'block';
         }).catch(error => {
             console.error('Error reading CSV file:', error);
             alert('Error reading CSV file. Please check the file path or URL.');
@@ -126,12 +126,13 @@ function allocateCountriesSimulated(playerNames, countries) {
         let endIndex = startIndex + countriesPerPlayer + (surplusCountries > 0 ? 1 : 0);
 
         allocationResult.push(countries.slice(startIndex, endIndex).map(country => {
-            let displayText = `${country.name}`;
+            let displayText = `${country.name.toUpperCase()}<br>`;
             if (country.artist) {
-                displayText += ` - ${country.artist}`;
+                displayText += `${country.artist.replace(/"/g, '')}`;
             }
             if (country.song) {
-                displayText += ` - ${country.song}`;
+                displayText += `: ${country.song.replace(/"/g, '')}`;
+
             }
             return displayText;
         }));
