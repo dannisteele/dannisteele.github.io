@@ -20,13 +20,13 @@ function readCSV(file) {
     });
 }
 
-
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
     let fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = '.csv';
     playerNamesDiv.appendChild(fileInput);
+
     if (numOfPlayers > 0) {
         playerNamesDiv.innerHTML = '';
 
@@ -39,14 +39,26 @@ function startAllocation() {
 
         playerNamesDiv.style.display = 'block';
 
-        let startButton = document.createElement('button');
-        startButton.textContent = 'Allocate Countries';
-        startButton.onclick = allocateCountries;
-        playerNamesDiv.appendChild(startButton);
+        // Create the "Allocate Countries" button
+        let allocateButton = document.createElement('button');
+        allocateButton.textContent = 'Allocate Countries';
+        allocateButton.onclick = allocateCountries;
+
+        // Append the button to the #allocate div
+        let allocateDiv = document.getElementById('allocate');
+        allocateDiv.innerHTML = ''; // Clear existing content
+        allocateDiv.appendChild(allocateButton);
+
+        allocateDiv.style.display = 'block'; // Display the #allocate div
+
     } else {
         alert('Number of players must be greater than 0. Please try again.');
     }
 }
+
+
+
+
 
 function allocateCountries() {
     let playerNames = Array.from(playerNamesDiv.getElementsByTagName('input')).map(input => input.value.trim());
