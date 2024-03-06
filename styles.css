@@ -42,3 +42,42 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+#allocate {
+    display: none; /* Hide the div initially */
+}
+
+#allocate button {
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#allocate button:hover {
+    background-color: #45a049;
+}
+
+#playerNames {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#playerNames input {
+    width: calc(25% - 10px); /* Adjust the width based on your needs */
+    margin: 10px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    #playerNames input {
+        width: calc(25% - 10px); /* Adjust the width based on your needs */
+    }
+}
