@@ -73,6 +73,7 @@ function allocateCountries() {
             resultDiv.innerHTML += `<br>`;
             resultDiv.innerHTML += `<br>`;
         }
+        smoothScroll(resultDiv)
     }).catch(error => {
         console.error('Error reading CSV file:', error);
         alert('Error reading CSV file. Please check the file path or URL.');
@@ -150,3 +151,28 @@ function parseCSV(csvText) {
     });
 }
 
+function smoothScroll(element, duration = 2000, easing = 'easeInOutQuad') {
+    const start = window.scrollY || window.pageYOffset;
+    const target = element.getBoundingClientRect().top + start;
+    const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+
+    function scroll() {
+        const currentTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+        const timeElapsed = currentTime - startTime;
+
+        window.scrollTo(0, easeInOutQuad(timeElapsed, start, target - start, duration));
+
+        if (timeElapsed < duration) {
+            requestAnimationFrame(scroll);
+        }
+    }
+
+    function easeInOutQuad(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+
+    requestAnimationFrame(scroll);
+}
