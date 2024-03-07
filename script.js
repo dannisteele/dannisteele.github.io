@@ -49,11 +49,16 @@ function allocateCountries() {
     readCSVFromPath(selectedYear).then(data => {
         console.log(data);
 
-        let countries = data.map(row => ({
-            name: row[0].trim(),
-            artist: row[1].trim(),
-            song: row[2].trim()
-        }));
+
+        let countries = data.map(row => {
+            if (row.length == 3) {
+                return {
+                    name: row[0].trim(),
+                    artist: row[1].trim(),
+                    song: row[2].trim()
+                };
+            }
+        });
 
         if (playerNames.length > countries.length) {
             // Display a warning message if there are more players than countries
@@ -79,6 +84,7 @@ function allocateCountries() {
         alert('Error reading CSV file. Please check the file path or URL.');
     });
 }
+
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -123,7 +129,7 @@ function allocateCountriesSimulated(playerNames, countries) {
 function readCSVFromPath(selectedYear) {
     return new Promise((resolve, reject) => {
         // Specify the GitHub raw content URL for the selected year
-        let csvFilePath = `https://raw.githubusercontent.com/dannisteele/Eurovision-allocator/a4d6a7d57187ab95aeea6dd03476c6a1e1e19aae/Set_Lists/CSV/${selectedYear}.csv`;
+        let csvFilePath = `https://raw.githubusercontent.com/dannisteele/Eurovision-allocator/main/Set_Lists/CSV/${selectedYear}.csv`;
 
         fetch(csvFilePath)
             .then(response => {
@@ -145,6 +151,9 @@ function readCSVFromPath(selectedYear) {
 
 function parseCSV(csvText) {
     let rows = csvText.split('\n');
+    // Filter out empty rows
+    rows = rows.filter(row => row.trim() !== '');
+
     return rows.map(row => {
         let columns = row.split(',');
         return columns.map(column => column.trim());
