@@ -122,7 +122,7 @@ function allocateCountriesSimulated(playerNames, countries) {
 function readCSVFromPath(selectedYear) {
     return new Promise((resolve, reject) => {
         // Specify the GitHub raw content URL for the selected year
-        let csvFilePath = `https://raw.githubusercontent.com/dannisteele/Eurovision-allocator/f820a2fcbe8763ddcabdfac142dd90725981c27c/Set_Lists/CSV/${selectedYear}.csv`;
+        let csvFilePath = `https://raw.githubusercontent.com/dannisteele/Eurovision-allocator/a4d6a7d57187ab95aeea6dd03476c6a1e1e19aae/Set_Lists/CSV/${selectedYear}.csv`;
 
         fetch(csvFilePath)
             .then(response => {
