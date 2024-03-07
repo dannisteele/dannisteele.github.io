@@ -20,8 +20,7 @@ h1 {
 /* Main container styles */
 .container {
     flex: 1;
-    max-width: 80%;
-    min-width: 70%;
+    width: 60%;
     margin: 50px auto;
     background-color: #da40d6;
     padding: 20px;
@@ -123,8 +122,7 @@ footer {
     }
 
     .container {
-        max-width: 100%;
-        min-width: 90%;
+        width: 90%;
     }
 }
 
