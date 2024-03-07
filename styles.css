@@ -39,7 +39,7 @@ input, select, button {
 }
 
 /* Button styles */
-button {
+button , .button{
     cursor: pointer;
     background-color: #f8fb00;
     color: #000;
@@ -48,18 +48,33 @@ button {
 }
 
 /* Button hover styles */
-button:hover {
+button:hover, .button:hover {
     background-color: #21c0dc;
 }
 
 /* Button click style */
-button:active {
+button:active, .button:active {
     background-color: #17889c;
+}
+
+/* Button class */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 /* The allocate div */
 #allocate {
     display: none; /* Hide the div initially */
+}
+
+input {
+    width: 15%;
+    text-align: center;
 }
 
 /* The playerNames div */

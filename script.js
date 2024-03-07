@@ -1,6 +1,7 @@
 let numOfPlayersInput = document.getElementById('numOfPlayers');
 let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
+let socialDiv = document.getElementById('social');
 
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
@@ -28,7 +29,7 @@ function startAllocation() {
 
         // Append the button to the #allocate div
         let allocateDiv = document.getElementById('allocate');
-        allocateDiv.innerHTML = ''; // Clear existing content
+        allocateDiv.innerHTML = '';
         allocateDiv.appendChild(allocateButton);
 
         allocateDiv.style.display = 'block'; // Display the #allocate div
@@ -51,13 +52,11 @@ function allocateCountries() {
 
 
         let countries = data.map(row => {
-            if (row.length == 3) {
                 return {
                     name: row[0].trim(),
                     artist: row[1].trim(),
                     song: row[2].trim()
                 };
-            }
         });
 
         if (playerNames.length > countries.length) {
@@ -78,6 +77,8 @@ function allocateCountries() {
             resultDiv.innerHTML += `<br>`;
             resultDiv.innerHTML += `<br>`;
         }
+        socialDiv.style.display = 'block'; // Displat the #social div
+        updateOGDescription()
         smoothScroll(resultDiv)
     }).catch(error => {
         console.error('Error reading CSV file:', error);
@@ -184,4 +185,12 @@ function smoothScroll(element, duration = 2000, easing = 'easeInOutQuad') {
     }
 
     requestAnimationFrame(scroll);
+}
+
+function updateOGDescription() {
+    var resultsContent = document.getElementById('result').innerText;
+    var ogDescriptionMetaTag = document.getElementById('ogDescription');
+    
+    // Update the og:description content with the results content
+    ogDescriptionMetaTag.setAttribute('content', resultsContent);
 }
