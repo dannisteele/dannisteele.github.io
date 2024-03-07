@@ -32,6 +32,10 @@ function startAllocation() {
         allocateDiv.innerHTML = '';
         allocateDiv.appendChild(allocateButton);
 
+        let whatsappLink = document.getElementById('whatsappLink');
+        let customText = "A free and easy Eurovision sweepstake!";
+        whatsappLink.href = `whatsapp://send?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
+
         allocateDiv.style.display = 'block'; // Display the #allocate div
 
     } else {
@@ -52,11 +56,11 @@ function allocateCountries() {
 
 
         let countries = data.map(row => {
-                return {
-                    name: row[0].trim(),
-                    artist: row[1].trim(),
-                    song: row[2].trim()
-                };
+            return {
+                name: row[0].trim(),
+                artist: row[1].trim(),
+                song: row[2].trim()
+            };
         });
 
         if (playerNames.length > countries.length) {
@@ -78,7 +82,6 @@ function allocateCountries() {
             resultDiv.innerHTML += `<br>`;
         }
         socialDiv.style.display = 'block'; // Displat the #social div
-        updateOGDescription()
         smoothScroll(resultDiv)
     }).catch(error => {
         console.error('Error reading CSV file:', error);
@@ -185,12 +188,4 @@ function smoothScroll(element, duration = 2000, easing = 'easeInOutQuad') {
     }
 
     requestAnimationFrame(scroll);
-}
-
-function updateOGDescription() {
-    var resultsContent = document.getElementById('result').innerText;
-    var ogDescriptionMetaTag = document.getElementById('ogDescription');
-    
-    // Update the og:description content with the results content
-    ogDescriptionMetaTag.setAttribute('content', resultsContent);
 }
