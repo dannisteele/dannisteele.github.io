@@ -36,6 +36,9 @@ function startAllocation() {
         let customText = "A free and easy Eurovision sweepstake!";
         whatsappLink.href = `whatsapp://send?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
 
+        let twitterLink = document.getElementById('twitterLink');
+        twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`
+
         allocateDiv.style.display = 'block'; // Display the #allocate div
 
     } else {
