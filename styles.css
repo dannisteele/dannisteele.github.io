@@ -121,10 +121,19 @@ footer {
     #playerNames input {
         width: 40%;
     }
+
+    .container {
+        max-width: 100%;
+        min-width: 90%;
+    }
 }
 
 @media (max-width: 480px) {
     #playerNames input {
         width: 80%;
+    }
+    .container {
+        max-width: 100%;
+        width: 100%;
     }
 }
