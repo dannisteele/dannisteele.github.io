@@ -116,7 +116,7 @@ function allocateCountriesSimulated(playerNames, countries) {
         let endIndex = startIndex + countriesPerPlayer + (surplusCountries > 0 ? 1 : 0);
 
         allocationResult.push(countries.slice(startIndex, endIndex).map(country => {
-            let displayText = `${country.name.toUpperCase()}<br>`;
+            let displayText = `${country.name.toUpperCase().replace(/"/g, '')}<br>`;
             if (country.artist) {
                 displayText += `${country.artist.replace(/"/g, '')}`;
             }
@@ -147,6 +147,7 @@ function readCSVFromPath(selectedYear) {
             })
             .then(data => {
                 let parsedData = parseCSV(data);
+                parsedData.shift();
                 resolve(parsedData);
             })
             .catch(error => {
