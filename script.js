@@ -60,9 +60,9 @@ function allocateCountries() {
 
         let countries = data.map(row => {
             return {
-                name: row[0].trim(),
-                artist: row[1].trim(),
-                song: row[2].trim()
+                name: row[1].trim(),
+                artist: row[2].trim(),
+                song: row[3].trim()
             };
         });
 
