@@ -1,6 +1,6 @@
 /* Reset default styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Helvetica', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #3f1c71;
@@ -49,6 +49,7 @@ button , .button{
     color: #000;
     border: none;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 /* Button hover styles */
