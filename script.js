@@ -2,6 +2,7 @@ let numOfPlayersInput = document.getElementById('numOfPlayers');
 let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
 let socialDiv = document.getElementById('social');
+let resetbutton = document.getElementById('reset')
 
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
@@ -85,6 +86,7 @@ function allocateCountries() {
             resultDiv.innerHTML += `<br>`;
         }
         socialDiv.style.display = 'block'; // Displat the #social div
+        resetbutton.style.display = 'block';
         smoothScroll(resultDiv)
     }).catch(error => {
         console.error('Error reading CSV file:', error);
@@ -192,4 +194,19 @@ function smoothScroll(element, duration = 2000, easing = 'easeInOutQuad') {
     }
 
     requestAnimationFrame(scroll);
+}
+
+function resetApp() {
+    // Reset the number of players input
+    numOfPlayersInput.value = '';
+
+    // Remove the file input and player name inputs
+    playerNamesDiv.innerHTML = '';
+
+    // Hide the player names, allocation, result, and social divs
+    playerNamesDiv.style.display = 'none';
+    document.getElementById('allocate').style.display = 'none';
+    resultDiv.style.display = 'none';
+    socialDiv.style.display = 'none';
+    resetbutton.style.display = 'none';
 }

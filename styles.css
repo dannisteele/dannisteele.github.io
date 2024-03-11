@@ -71,6 +71,10 @@ button:active, .button:active {
     margin-bottom: 10px;
 }
 
+#reset {
+    margin: 2rem;
+}
+
 /* The allocate div */
 #allocate {
     display: none; /* Hide the div initially */
