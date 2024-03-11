@@ -4,6 +4,18 @@ let resultDiv = document.getElementById('result');
 let socialDiv = document.getElementById('social');
 let resetbutton = document.getElementById('reset')
 
+numOfPlayersInput.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+        startAllocation();
+    }
+});
+
+playerNamesDiv.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+        allocateCountries();
+    }
+});
+
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
     let fileInput = document.createElement('input');
@@ -33,6 +45,12 @@ function startAllocation() {
         allocateDiv.innerHTML = '';
         allocateDiv.appendChild(allocateButton);
 
+        // Focus on the first player input
+        let firstPlayerInput = playerNamesDiv.querySelector('input[type=text]');
+        if (firstPlayerInput) {
+            firstPlayerInput.focus();
+        }
+
         let whatsappLink = document.getElementById('whatsappLink');
         let customText = "A free and easy Eurovision sweepstake!";
         whatsappLink.href = `whatsapp://send?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
@@ -50,6 +68,9 @@ function startAllocation() {
 function allocateCountries() {
     let playerInputs = Array.from(playerNamesDiv.getElementsByTagName('input'));
     let playerNames = playerInputs.map(input => input.value.trim());
+
+    // Remove focus from all input elements
+    document.querySelectorAll('input').forEach(input => input.blur());
 
     // Check for empty names and assign default names if needed
     playerNames = playerNames.map((name, index) => name !== '' ? name : `Player ${index + 1}`);
