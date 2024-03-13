@@ -85,7 +85,7 @@ button:active, .button:active {
     display: none; /* Hide the div initially */
 }
 
-input {
+input[type="text"], input[type="number"] {
     width: 15%;
     text-align: center;
 }
