@@ -110,8 +110,10 @@
                 <option value="2023">2023</option>
                 <option value="2024" selected>2024</option>
             </select>
-            <label for="finalists">Include only finalists where possible?</label>
-            <input type="checkbox" id="finalists">
+        </div>
+        <div id="finalists">
+            <label for="finalistsCheckbox">Include only finalists where possible?</label>
+            <input type="checkbox" id="finalistCheckbox">
         </div>
         <button onclick="startAllocation()">Start Allocation</button>
         <div id="playerNames" style="display: none;">
@@ -127,7 +129,8 @@
             <button onclick="resetApp()">Reset</button>
         </div>
         <div id="social" style="display: none;">
-            <a class="button" href="https://www.facebook.com/sharer/sharer.php?u=https://dannisteele.github.io" target="_blank" rel="noopener noreferrer">
+            <a class="button" href="https://www.facebook.com/sharer/sharer.php?u=https://dannisteele.github.io"
+                target="_blank" rel="noopener noreferrer">
                 Share on Facebook
             </a>
             <br>
@@ -135,12 +138,14 @@
                 Share on Twitter
             </a>
             <br>
-            <a id="whatsappLink" class="button" href="#" data-action="share/whatsapp/share" target="_blank" rel="noopener noreferrer">
+            <a id="whatsappLink" class="button" href="#" data-action="share/whatsapp/share" target="_blank"
+                rel="noopener noreferrer">
                 Share on WhatsApp
             </a>
         </div>
         <div id="disclaimer">
-            <p>Any feedback is welcomed: <a href="mailto:mystylakes@gmail.com?subject=Eurovision%20allocator">mystylakes@gmail.com</a></p>
+            <p>Any feedback is welcomed: <a
+                    href="mailto:mystylakes@gmail.com?subject=Eurovision%20allocator">mystylakes@gmail.com</a></p>
         </div>
     </div>
 
