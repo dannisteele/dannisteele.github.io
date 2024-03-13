@@ -3,7 +3,9 @@ let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
 let socialDiv = document.getElementById('social');
 let resetbutton = document.getElementById('reset')
+let finalistsDiv = document.getElementById('finalists')
 let finalistsCheckbox = document.getElementById('finalistsCheckbox');
+let yearSelect = document.getElementById('csvFileInput');
 
 
 numOfPlayersInput.addEventListener('keyup', function (event) {
@@ -12,11 +14,17 @@ numOfPlayersInput.addEventListener('keyup', function (event) {
     }
 });
 
+yearSelect.addEventListener('change', function () {
+    checkIfFinalists();
+});
+
 playerNamesDiv.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
         allocateCountries();
     }
 });
+
+
 
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
@@ -24,6 +32,8 @@ function startAllocation() {
     fileInput.type = 'file';
     fileInput.accept = '.csv';
     playerNamesDiv.appendChild(fileInput);
+
+    
 
     if (numOfPlayers > 0) {
         playerNamesDiv.innerHTML = '';
@@ -243,4 +253,36 @@ function resetApp() {
     resultDiv.style.display = 'none';
     socialDiv.style.display = 'none';
     resetbutton.style.display = 'none';
+    finalistsDiv.style.display = 'none';
+}
+
+function checkIfFinalists() {
+    let selectedYear = document.getElementById('csvFileInput').value;
+    readCSVFromPath(selectedYear).then(data => {
+        console.log(data);
+
+
+        let countries = data.map(row => {
+            return {
+                name: row[1].trim(),
+                artist: row[2].trim(),
+                song: row[3].trim(),
+                runningOrder: row[5].trim()
+            };
+        });
+
+        // Check if there are both finalists and non-finalists in the data
+        let hasFinalists = countries.some(country => country.runningOrder !== "NULL");
+        let hasNonFinalists = countries.some(country => country.runningOrder === "NULL");
+
+        if (hasFinalists && hasNonFinalists) {
+            finalistsDiv.style.display = 'block';
+        } else {
+            finalistsDiv.style.display = 'none';
+        }
+        
+    }).catch(error => {
+        console.error('Error reading CSV file:', error);
+        alert('Error reading CSV file. Please check the file path or URL.');
+    });
 }
