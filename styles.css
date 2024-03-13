@@ -42,13 +42,8 @@ input, select, button {
     box-sizing: border-box;
 }
 
-#finalists {
+div#finalists {
     text-align: center;
-}
-
-#finalists input[type="checkbox"] {
-    display: inline-block;
-    vertical-align: middle;
 }
 
 /* Button styles */
