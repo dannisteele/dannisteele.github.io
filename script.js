@@ -24,7 +24,8 @@ playerNamesDiv.addEventListener('keyup', function (event) {
     }
 });
 
-
+// Check the default selected year
+checkIfFinalists()
 
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
