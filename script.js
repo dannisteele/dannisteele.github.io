@@ -3,7 +3,7 @@ let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
 let socialDiv = document.getElementById('social');
 let resetbutton = document.getElementById('reset')
-let finalistsCheckbox = document.getElementById('finalists');
+let finalistsCheckbox = document.getElementById('finalistsCheckbox');
 
 
 numOfPlayersInput.addEventListener('keyup', function (event) {
