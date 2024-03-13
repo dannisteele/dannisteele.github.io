@@ -42,6 +42,10 @@ input, select, button {
     box-sizing: border-box;
 }
 
+#finalists {
+    text-align: center;
+}
+
 /* Button styles */
 button , .button{
     cursor: pointer;
@@ -109,6 +113,10 @@ input {
 
 #disclaimer {
     margin-top: 70px;
+}
+
+#disclaimer a {
+    color:#FFFFE0;
 }
 
 /* Footer styles */

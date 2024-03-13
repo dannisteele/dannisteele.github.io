@@ -3,6 +3,8 @@ let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
 let socialDiv = document.getElementById('social');
 let resetbutton = document.getElementById('reset')
+let finalistsCheckbox = document.getElementById('finalists');
+
 
 numOfPlayersInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
@@ -84,9 +86,20 @@ function allocateCountries() {
             return {
                 name: row[1].trim(),
                 artist: row[2].trim(),
-                song: row[3].trim()
+                song: row[3].trim(),
+                runningOrder: row[5].trim()
             };
         });
+        
+        if (finalistsCheckbox.checked) {
+            // Apply filter only if the list is not empty
+            if (countries.some(country => country.runningOrder !== "NULL")) {
+                countries = countries.filter(country => country.runningOrder !== "NULL");
+            } else {
+                // If the filtered list is empty, use the original list
+                console.log("Empty filtered list, using the original list");
+            }
+        }
 
         if (playerNames.length > countries.length) {
             // Display a warning message if there are more players than countries
