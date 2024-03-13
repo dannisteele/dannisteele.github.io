@@ -46,6 +46,11 @@ input, select, button {
     text-align: center;
 }
 
+#finalists input[type="checkbox"] {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /* Button styles */
 button , .button{
     cursor: pointer;
