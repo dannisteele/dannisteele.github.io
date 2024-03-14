@@ -101,10 +101,12 @@ function allocateCountries() {
 
         let countries = data.map(row => {
             return {
-                name: row[1].trim(),
-                artist: row[2].trim(),
-                song: row[3].trim(),
-                runningOrder: row[5].trim()
+                name: row[1].trim().replace(/"/g, ''),
+                artist: row[2].trim().replace(/"/g, ''),
+                song: row[3].trim().replace(/"/g, ''),
+                runningOrder: row[5].trim().replace(/"/g, ''),
+                youtube: row[14].trim().replace(/"/g, ''),
+                appleMusic: row[15].trim().replace(/"/g, '')
             };
         });
         
@@ -181,6 +183,16 @@ function allocateCountriesSimulated(playerNames, countries) {
             if (country.song) {
                 displayText += `: ${country.song.replace(/"/g, '')}`;
 
+            }
+            if (country.youtube !== "NULL" && country.appleMusic !=="NULL") {
+                displayText += "<br>";
+                displayText += `<a href="${country.youtube}" target="_blank">YouTube</a> | <a href="${country.appleMusic}" target="_blank">Apple Music</a>`;
+            } else if (country.youtube !== "NULL") {
+                displayText += "<br>";
+                displayText += `<a href="${country.youtube}" target="_blank">YouTube</a>`;
+            } else if (country.appleMusic !== "NULL") {
+                displayText += "<br>";
+                displayText += `<a href="${country.appleMusic}" target="_blank">Apple Music</a>`;
             }
             return displayText;
         }));
