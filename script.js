@@ -60,9 +60,9 @@ function startAllocation() {
         allocateDiv.innerHTML = '';
         allocateDiv.appendChild(allocateButton);
 
-        // Focus on the first player input
+        // Focus on the first player input if not on mobile
         let firstPlayerInput = playerNamesDiv.querySelector('input[type=text]');
-        if (firstPlayerInput) {
+        if (firstPlayerInput && !isMobileDevice) {
             firstPlayerInput.focus();
         }
 
