@@ -6,7 +6,10 @@ let resetbutton = document.getElementById('reset')
 let finalistsDiv = document.getElementById('finalists')
 let finalistsCheckbox = document.getElementById('finalistsCheckbox');
 let yearSelect = document.getElementById('csvFileInput');
+let firstSection = document.getElementById('untilStartAllocation')
+let secondSection = document.getElementById('untilAllocateCountries')
 
+let isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
 
 numOfPlayersInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
@@ -24,7 +27,7 @@ playerNamesDiv.addEventListener('keyup', function (event) {
     }
 });
 
-
+checkIfFinalists();
 
 function startAllocation() {
     let numOfPlayers = parseInt(numOfPlayersInput.value);
@@ -71,6 +74,10 @@ function startAllocation() {
         twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`
 
         allocateDiv.style.display = 'block'; // Display the #allocate div
+
+        if (isMobileDevice) {
+            firstSection.style.display = 'none';
+        }
 
     } else {
         alert('Number of players must be greater than 0. Please try again.');
@@ -131,6 +138,11 @@ function allocateCountries() {
         }
         socialDiv.style.display = 'block'; // Displat the #social div
         resetbutton.style.display = 'block';
+
+        if (isMobileDevice) {
+            secondSection.style.display = 'none';
+        }
+
         smoothScroll(resultDiv)
     }).catch(error => {
         console.error('Error reading CSV file:', error);
@@ -214,7 +226,7 @@ function parseCSV(csvText) {
     });
 }
 
-function smoothScroll(element, duration = 2000, easing = 'easeInOutQuad') {
+function smoothScroll(element, duration = 1200, easing = 'easeInOutQuad') {
     const start = window.scrollY || window.pageYOffset;
     const target = element.getBoundingClientRect().top + start;
     const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
@@ -254,6 +266,12 @@ function resetApp() {
     socialDiv.style.display = 'none';
     resetbutton.style.display = 'none';
     finalistsDiv.style.display = 'none';
+
+    if (isMobileDevice) {
+        firstSection.style.display = 'block';
+    }
+
+    checkIfFinalists();
 }
 
 function checkIfFinalists() {
