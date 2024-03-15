@@ -78,6 +78,7 @@ function startAllocation() {
 
         if (isMobileDevice) {
             firstSection.style.display = 'none';
+            secondSection.style.display = 'block';
         }
 
     } else {
@@ -143,9 +144,9 @@ function allocateCountries() {
         socialDiv.style.display = 'block'; // Displat the #social div
         resetbutton.style.display = 'block';
 
-        // if (isMobileDevice) {
-        //     secondSection.style.display = 'none';
-        // }
+        if (isMobileDevice) {
+            secondSection.style.display = 'none';
+        }
 
         smoothScroll(resultDiv)
     }).catch(error => {
