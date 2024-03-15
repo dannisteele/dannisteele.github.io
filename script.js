@@ -19,6 +19,7 @@ numOfPlayersInput.addEventListener('keyup', function (event) {
 
 yearSelect.addEventListener('change', function () {
     checkIfFinalists();
+    finalistsCheckbox.checked = false;
 });
 
 playerNamesDiv.addEventListener('keyup', function (event) {
@@ -138,12 +139,13 @@ function allocateCountries() {
             resultDiv.innerHTML += `<br>`;
             resultDiv.innerHTML += `<br>`;
         }
+        resultDiv.style.display = 'block';
         socialDiv.style.display = 'block'; // Displat the #social div
         resetbutton.style.display = 'block';
 
-        if (isMobileDevice) {
-            secondSection.style.display = 'none';
-        }
+        // if (isMobileDevice) {
+        //     secondSection.style.display = 'none';
+        // }
 
         smoothScroll(resultDiv)
     }).catch(error => {

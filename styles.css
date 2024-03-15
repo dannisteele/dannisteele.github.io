@@ -40,10 +40,16 @@ input, select, button {
     padding: 10px;
     margin-bottom: 20px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 div#finalists {
     text-align: center;
+}
+
+div#untilStartAllocation {
+    text-align: center;
+    vertical-align: middle;
 }
 
 /* Button styles */
