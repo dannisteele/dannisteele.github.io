@@ -40,16 +40,10 @@ input, select, button {
     padding: 10px;
     margin-bottom: 20px;
     box-sizing: border-box;
-    text-align: center;
 }
 
 div#finalists {
     text-align: center;
-}
-
-div#untilStartAllocation {
-    text-align: center;
-    vertical-align: middle;
 }
 
 /* Button styles */
@@ -117,11 +111,16 @@ input[type="text"], input[type="number"] {
     color: #fff;
 }
 
+img {
+    height: 30px;
+    width: auto;
+}
+
 #disclaimer {
     margin-top: 70px;
 }
 
-a {
+#disclaimer a {
     color:#FFFFE0;
 }
 
