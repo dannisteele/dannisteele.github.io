@@ -190,17 +190,14 @@ function allocateCountriesBuilder(playerNames, countries) {
                 displayText += `: ${country.song.replace(/"/g, '')}`;
 
             }
-            if (country.youtube !== "NULL" && country.appleMusic !== "NULL") {
-                displayText += "<br>";
-                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a> | <a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
-            } else if (country.youtube !== "NULL") {
-                displayText += "<br>";
-                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>`;
-            } else if (country.appleMusic !== "NULL") {
-                displayText += "<br>";
-                displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
+            displayText += "<br>";
+            if  (country.youtube !== "NULL") {
+                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>&emsp;`;
             }
-            return displayText;
+            if (country.appleMusic !== "NULL") {
+                displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>&emsp;`;
+            }
+            return displayText.trim();
         }));
 
         startIndex = endIndex;
