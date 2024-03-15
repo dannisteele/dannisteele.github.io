@@ -2,12 +2,16 @@ let numOfPlayersInput = document.getElementById('numOfPlayers');
 let playerNamesDiv = document.getElementById('playerNames');
 let resultDiv = document.getElementById('result');
 let socialDiv = document.getElementById('social');
-let resetbutton = document.getElementById('reset')
-let finalistsDiv = document.getElementById('finalists')
+let resetbutton = document.getElementById('reset');
+let finalistsDiv = document.getElementById('finalists');
 let finalistsCheckbox = document.getElementById('finalistsCheckbox');
 let yearSelect = document.getElementById('csvFileInput');
-let firstSection = document.getElementById('untilStartAllocation')
-let secondSection = document.getElementById('untilAllocateCountries')
+let firstSection = document.getElementById('untilStartAllocation');
+let secondSection = document.getElementById('untilAllocateCountries');
+let allocateButton = document.getElementById('allocateButton')
+let allocateDiv = document.getElementById('allocate');
+let whatsappLink = document.getElementById('whatsappLink');
+let twitterLink = document.getElementById('twitterLink');
 
 let isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
 
@@ -37,7 +41,7 @@ function startAllocation() {
     fileInput.accept = '.csv';
     playerNamesDiv.appendChild(fileInput);
 
-    
+
 
     if (numOfPlayers > 0) {
         playerNamesDiv.innerHTML = '';
@@ -49,15 +53,11 @@ function startAllocation() {
             playerNamesDiv.appendChild(playerNameInput);
         }
 
+  
         playerNamesDiv.style.display = 'block';
 
-        // Create the "Allocate Countries" button
-        let allocateButton = document.createElement('button');
-        allocateButton.textContent = 'Allocate Countries';
-        allocateButton.onclick = allocateCountries;
-
         // Append the button to the #allocate div
-        let allocateDiv = document.getElementById('allocate');
+
         allocateDiv.innerHTML = '';
         allocateDiv.appendChild(allocateButton);
 
@@ -67,17 +67,18 @@ function startAllocation() {
             firstPlayerInput.focus();
         }
 
-        let whatsappLink = document.getElementById('whatsappLink');
+
         let customText = "A free and easy Eurovision sweepstake!";
         whatsappLink.href = `whatsapp://send?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
 
-        let twitterLink = document.getElementById('twitterLink');
+        
         twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`
 
         allocateDiv.style.display = 'block'; // Display the #allocate div
 
         if (isMobileDevice) {
             firstSection.style.display = 'none';
+            secondSection.style.display = 'block';
         }
 
     } else {
@@ -87,7 +88,7 @@ function startAllocation() {
 
 function allocateCountries() {
     let playerInputs = Array.from(playerNamesDiv.getElementsByTagName('input'));
-    let playerNames = playerInputs.map(input => input.value.trim());
+    let playerNames = playerInputs.map(input => escapeHtml(input.value.trim()));
 
     // Remove focus from all input elements
     document.querySelectorAll('input').forEach(input => input.blur());
@@ -95,7 +96,7 @@ function allocateCountries() {
     // Check for empty names and assign default names if needed
     playerNames = playerNames.map((name, index) => name !== '' ? name : `Player ${index + 1}`);
 
-    let selectedYear = document.getElementById('csvFileInput').value;
+    let selectedYear = yearSelect.value;
     readCSVFromPath(selectedYear).then(data => {
         console.log(data);
 
@@ -110,7 +111,7 @@ function allocateCountries() {
                 appleMusic: row[15].trim().replace(/"/g, '')
             };
         });
-        
+
         if (finalistsCheckbox.checked) {
             // Apply filter only if the list is not empty
             if (countries.some(country => country.runningOrder !== "NULL")) {
@@ -126,7 +127,7 @@ function allocateCountries() {
             alert('Warning: There are more players than countries. Some players will not receive a country.');
         }
 
-        let allocationResult = allocateCountriesSimulated(playerNames, countries);
+        let allocationResult = allocateCountriesBuilder(playerNames, countries);
 
         resultDiv.innerHTML = "";
         for (let i = 0; i < allocationResult.length; i++) {
@@ -143,9 +144,9 @@ function allocateCountries() {
         socialDiv.style.display = 'block'; // Displat the #social div
         resetbutton.style.display = 'block';
 
-        // if (isMobileDevice) {
-        //     secondSection.style.display = 'none';
-        // }
+        if (isMobileDevice) {
+            secondSection.style.display = 'none';
+        }
 
         smoothScroll(resultDiv)
     }).catch(error => {
@@ -162,7 +163,7 @@ function shuffleArray(array) {
     }
 }
 
-function allocateCountriesSimulated(playerNames, countries) {
+function allocateCountriesBuilder(playerNames, countries) {
     let allocationResult = [];
 
     // Assuming each country has a name, artist, and song
@@ -171,6 +172,9 @@ function allocateCountriesSimulated(playerNames, countries) {
     let totalCountries = countries.length;
     let countriesPerPlayer = Math.floor(totalCountries / playerNames.length);
     let surplusCountries = totalCountries % playerNames.length;
+
+    let youtubePng = "resources/youtube.png";
+    let appleMusicPng = "resources/apple_music.png";
 
     let startIndex = 0;
 
@@ -186,15 +190,15 @@ function allocateCountriesSimulated(playerNames, countries) {
                 displayText += `: ${country.song.replace(/"/g, '')}`;
 
             }
-            if (country.youtube !== "NULL" && country.appleMusic !=="NULL") {
+            if (country.youtube !== "NULL" && country.appleMusic !== "NULL") {
                 displayText += "<br>";
-                displayText += `<a href="${country.youtube}" target="_blank">YouTube</a> | <a href="${country.appleMusic}" target="_blank">Apple Music</a>`;
+                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a> | <a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
             } else if (country.youtube !== "NULL") {
                 displayText += "<br>";
-                displayText += `<a href="${country.youtube}" target="_blank">YouTube</a>`;
+                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>`;
             } else if (country.appleMusic !== "NULL") {
                 displayText += "<br>";
-                displayText += `<a href="${country.appleMusic}" target="_blank">Apple Music</a>`;
+                displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
             }
             return displayText;
         }));
@@ -275,7 +279,7 @@ function resetApp() {
 
     // Hide the player names, allocation, result, and social divs
     playerNamesDiv.style.display = 'none';
-    document.getElementById('allocate').style.display = 'none';
+    allocateDiv.style.display = 'none';
     resultDiv.style.display = 'none';
     socialDiv.style.display = 'none';
     resetbutton.style.display = 'none';
@@ -289,7 +293,7 @@ function resetApp() {
 }
 
 function checkIfFinalists() {
-    let selectedYear = document.getElementById('csvFileInput').value;
+    let selectedYear = yearSelect.value;
     readCSVFromPath(selectedYear).then(data => {
         console.log(data);
 
@@ -312,9 +316,22 @@ function checkIfFinalists() {
         } else {
             finalistsDiv.style.display = 'none';
         }
-        
+
     }).catch(error => {
         console.error('Error reading CSV file:', error);
         alert('Error reading CSV file. Please check the file path or URL.');
     });
+}
+
+// Function to escape HTML special characters
+function escapeHtml(text) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
