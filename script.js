@@ -108,7 +108,8 @@ function allocateCountries() {
                 song: row[3].trim().replace(/"/g, ''),
                 runningOrder: row[5].trim().replace(/"/g, ''),
                 youtube: row[14].trim().replace(/"/g, ''),
-                appleMusic: row[15].trim().replace(/"/g, '')
+                appleMusic: row[15].trim().replace(/"/g, ''),
+                spotify: row[16].trim().replace(/"/g, '')
             };
         });
 
@@ -175,6 +176,7 @@ function allocateCountriesBuilder(playerNames, countries) {
 
     let youtubePng = "resources/youtube.png";
     let appleMusicPng = "resources/apple_music.png";
+    let spotifyPng = "resources/spotify.png";
 
     let startIndex = 0;
 
@@ -196,6 +198,9 @@ function allocateCountriesBuilder(playerNames, countries) {
             }
             if (country.appleMusic !== "NULL") {
                 displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
+            }
+            if (country.spotify !== "NULL") {
+                displayText += `<a href="${country.spotify}" target="_blank"><img src=${spotifyPng} /></a>`;
             }
             return displayText.trim();
         }));
