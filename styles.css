@@ -114,6 +114,9 @@ input[type="text"], input[type="number"] {
 img {
     height: 30px;
     width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
 }
 
 #disclaimer {

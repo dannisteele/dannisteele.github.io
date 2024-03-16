@@ -192,10 +192,10 @@ function allocateCountriesBuilder(playerNames, countries) {
             }
             displayText += "<br>";
             if  (country.youtube !== "NULL") {
-                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>&emsp;`;
+                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>`;
             }
             if (country.appleMusic !== "NULL") {
-                displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>&emsp;`;
+                displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
             }
             return displayText.trim();
         }));
