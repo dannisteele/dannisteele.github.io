@@ -115,8 +115,8 @@ function allocateCountries() {
 
         if (finalistsCheckbox.checked) {
             // Apply filter only if the list is not empty
-            if (countries.some(country => country.runningOrder !== "NULL")) {
-                countries = countries.filter(country => country.runningOrder !== "NULL");
+            if (countries.some(country => country.runningOrder !== "")) {
+                countries = countries.filter(country => country.runningOrder !== "");
             } else {
                 // If the filtered list is empty, use the original list
                 console.log("Empty filtered list, using the original list");
@@ -193,13 +193,13 @@ function allocateCountriesBuilder(playerNames, countries) {
 
             }
             displayText += "<br>";
-            if  (country.youtube !== "NULL") {
+            if  (country.youtube !== "") {
                 displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>`;
             }
-            if (country.appleMusic !== "NULL") {
+            if (country.appleMusic !== "") {
                 displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
             }
-            if (country.spotify !== "NULL") {
+            if (country.spotify !== "") {
                 displayText += `<a href="${country.spotify}" target="_blank"><img src=${spotifyPng} /></a>`;
             }
             return displayText.trim();
@@ -310,8 +310,8 @@ function checkIfFinalists() {
         });
 
         // Check if there are both finalists and non-finalists in the data
-        let hasFinalists = countries.some(country => country.runningOrder !== "NULL");
-        let hasNonFinalists = countries.some(country => country.runningOrder === "NULL");
+        let hasFinalists = countries.some(country => country.runningOrder !== "");
+        let hasNonFinalists = countries.some(country => country.runningOrder === "");
 
         if (hasFinalists && hasNonFinalists) {
             finalistsDiv.style.display = 'block';
