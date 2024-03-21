@@ -1,108 +1,125 @@
-let numOfPlayersInput = document.getElementById('numOfPlayers');
-let playerNamesDiv = document.getElementById('playerNames');
-let resultDiv = document.getElementById('result');
-let socialDiv = document.getElementById('social');
-let resetbutton = document.getElementById('reset');
-let finalistsDiv = document.getElementById('finalists');
-let finalistsCheckbox = document.getElementById('finalistsCheckbox');
-let yearSelect = document.getElementById('csvFileInput');
-let firstSection = document.getElementById('untilStartAllocation');
-let secondSection = document.getElementById('untilAllocateCountries');
-let allocateButton = document.getElementById('allocateButton')
-let allocateDiv = document.getElementById('allocate');
-let whatsappLink = document.getElementById('whatsappLink');
-let twitterLink = document.getElementById('twitterLink');
+// Get DOM elements
+const numOfPlayersInput = document.getElementById('numOfPlayers');
+const playerNamesDiv = document.getElementById('playerNames');
+const resultDiv = document.getElementById('result');
+const socialDiv = document.getElementById('social');
+const resetbutton = document.getElementById('reset');
+const finalistsDiv = document.getElementById('finalists');
+const finalistsCheckbox = document.getElementById('finalistsCheckbox');
+const csvFileInput = document.getElementById('csvFileInput');
+const firstSection = document.getElementById('untilStartAllocation');
+const secondSection = document.getElementById('untilAllocateCountries');
+const allocateButton = document.getElementById('allocateButton');
+const allocateDiv = document.getElementById('allocate');
+const whatsappLink = document.getElementById('whatsappLink');
+const twitterLink = document.getElementById('twitterLink');
 
-let isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+// Check if the device is a mobile device
+const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
 
-numOfPlayersInput.addEventListener('keyup', function (event) {
+// Add event listener to numOfPlayersInput
+numOfPlayersInput.addEventListener('keyup', handleNumOfPlayersKeyUp);
+
+function handleNumOfPlayersKeyUp(event) {
     if (event.key === 'Enter') {
         startAllocation();
     }
-});
+}
 
-yearSelect.addEventListener('change', function () {
+// Add event listener to csvFileInput
+csvFileInput.addEventListener('change', handleCsvFileInputChange);
+
+function handleCsvFileInputChange() {
     checkIfFinalists();
     finalistsCheckbox.checked = false;
-});
+}
 
-playerNamesDiv.addEventListener('keyup', function (event) {
+// Add event listener to playerNamesDiv
+playerNamesDiv.addEventListener('keyup', handlePlayerNamesKeyUp);
+
+function handlePlayerNamesKeyUp(event) {
     if (event.key === 'Enter') {
         allocateCountries();
     }
-});
+}
 
 checkIfFinalists();
 
+// The function to initialize the country allocation process
 function startAllocation() {
-    let numOfPlayers = parseInt(numOfPlayersInput.value);
-    let fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.csv';
-    playerNamesDiv.appendChild(fileInput);
+    const numOfPlayersValue = numOfPlayersInput.value.trim(); // Get the value of the numOfPlayersInput and remove any leading/trailing whitespace
 
+    // Initialize the numOfPlayers variable
+    let numOfPlayers;
 
+    // Check if the numOfPlayersValue is empty
+    if (numOfPlayersValue === '') {
+        alert('Number of players must be provided. Please try again.');
+        return;
+    }
 
-    if (numOfPlayers > 0) {
-        playerNamesDiv.innerHTML = '';
+    // Parse the numOfPlayersValue and check if it's a valid whole integer greater than 0
+    numOfPlayers = parseFloat(numOfPlayersValue);
+    if (Number.isNaN(numOfPlayers) || !Number.isInteger(numOfPlayers) || numOfPlayers <= 0) {
+        alert('Number of players must be a valid whole integer greater than 0. Please try again.');
+        return;
+    }
 
-        for (let i = 0; i < numOfPlayers; i++) {
-            let playerNameInput = document.createElement('input');
-            playerNameInput.type = 'text';
-            playerNameInput.placeholder = `Enter name for Player ${i + 1}`;
-            playerNamesDiv.appendChild(playerNameInput);
-        }
+    // Clear the playerNamesDiv and add the required number of player name inputs
+    playerNamesDiv.innerHTML = '';
+    for (let i = 0; i < numOfPlayers; i++) {
+        const playerNameInput = document.createElement('input');
+        playerNameInput.type = 'text';
+        playerNameInput.placeholder = `Enter name for Player ${i + 1}`;
+        playerNamesDiv.appendChild(playerNameInput);
+    }
+    playerNamesDiv.style.display = 'block';
 
-  
-        playerNamesDiv.style.display = 'block';
+    // Clear the allocateDiv and add the allocateButton
+    allocateDiv.innerHTML = '';
+    allocateDiv.appendChild(allocateButton);
 
-        // Append the button to the #allocate div
+    // Focus on the first player input if not on a mobile device
+    const firstPlayerInput = playerNamesDiv.querySelector('input[type=text]');
+    if (firstPlayerInput && !isMobileDevice) {
+        firstPlayerInput.focus();
+    }
 
-        allocateDiv.innerHTML = '';
-        allocateDiv.appendChild(allocateButton);
+    // Set the href attribute for the whatsappLink and twitterLink
+    const customText = "A free and easy Eurovision sweepstake!";
+    whatsappLink.href = `whatsapp://send?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
+    twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
 
-        // Focus on the first player input if not on mobile
-        let firstPlayerInput = playerNamesDiv.querySelector('input[type=text]');
-        if (firstPlayerInput && !isMobileDevice) {
-            firstPlayerInput.focus();
-        }
+    // Display the allocateDiv
+    allocateDiv.style.display = 'block';
 
-
-        let customText = "A free and easy Eurovision sweepstake!";
-        whatsappLink.href = `whatsapp://send?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`;
-
-        
-        twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${customText} - https://dannisteele.github.io`)}`
-
-        allocateDiv.style.display = 'block'; // Display the #allocate div
-
-        if (isMobileDevice) {
-            firstSection.style.display = 'none';
-            secondSection.style.display = 'block';
-        }
-
-    } else {
-        alert('Number of players must be greater than 0. Please try again.');
+    // Hide the firstSection and display the secondSection if isMobileDevice is true
+    if (isMobileDevice) {
+        firstSection.style.display = 'none';
+        secondSection.style.display = 'block';
     }
 }
 
+// Function to allocate countries to players
 function allocateCountries() {
-    let playerInputs = Array.from(playerNamesDiv.getElementsByTagName('input'));
-    let playerNames = playerInputs.map(input => escapeHtml(input.value.trim()));
+    // Convert the player input elements to an array and extract the names
+    const playerInputs = Array.from(playerNamesDiv.getElementsByTagName('input'));
+    const playerNames = playerInputs.map(input => input.value.trim());
 
     // Remove focus from all input elements
     document.querySelectorAll('input').forEach(input => input.blur());
 
     // Check for empty names and assign default names if needed
-    playerNames = playerNames.map((name, index) => name !== '' ? name : `Player ${index + 1}`);
+    const formattedPlayerNames = playerNames.map((name, index) => name !== '' ? name : `Player ${index + 1}`);
 
-    let selectedYear = yearSelect.value;
-    readCSVFromPath(selectedYear).then(data => {
-        console.log(data);
+    // Get the selected year and read the CSV file
+    const selectedYear = csvFileInput.value;
+    readCSVFromPath(selectedYear)
+        .then(data => {
+            console.log(data);
 
-
-        let countries = data.map(row => {
-            return {
+            // Parse the CSV data and extract the required information
+            let countries = data.map(row => ({
                 name: row[1].trim().replace(/"/g, ''),
                 artist: row[2].trim().replace(/"/g, ''),
                 song: row[3].trim().replace(/"/g, ''),
@@ -110,70 +127,101 @@ function allocateCountries() {
                 youtube: row[14].trim().replace(/"/g, ''),
                 appleMusic: row[15].trim().replace(/"/g, ''),
                 spotify: row[16].trim().replace(/"/g, '')
-            };
-        });
+            }));
 
-        if (finalistsCheckbox.checked) {
-            // Apply filter only if the list is not empty
-            if (countries.some(country => country.runningOrder !== "")) {
-                countries = countries.filter(country => country.runningOrder !== "");
+            // Filter the countries based on the finalistsCheckbox status
+            let filteredCountries = [];
+            if (finalistsCheckbox.checked) {
+                if (countries.some(country => country.runningOrder.trim() !== "")) {
+                    countries.forEach(country => {
+                        if (country.runningOrder.trim() !== "") {
+                            filteredCountries.push(country);
+                        }
+                    });
+                } else {
+                    console.log("Empty filtered list, using the original list");
+                    filteredCountries = countries;
+                }
             } else {
-                // If the filtered list is empty, use the original list
-                console.log("Empty filtered list, using the original list");
+                filteredCountries = countries;
             }
-        }
 
-        if (playerNames.length > countries.length) {
-            // Display a warning message if there are more players than countries
-            alert('Warning: There are more players than countries. Some players will not receive a country.');
-        }
+            // Check if there are more players than countries
+            if (formattedPlayerNames.length > filteredCountries.length) {
+                // Display a warning message if there are more players than countries
+                alert('Warning: There are more players than countries. Some players will not receive a country.');
+            }
 
-        let allocationResult = allocateCountriesBuilder(playerNames, countries);
+            // Allocate countries to players and build the allocationResult array
+            const allocationResult = allocateCountriesBuilder(formattedPlayerNames, filteredCountries);
 
-        resultDiv.innerHTML = "";
-        for (let i = 0; i < allocationResult.length; i++) {
-            let formattedPlayerName = `***${playerNames[i].toUpperCase()}***`;
-            resultDiv.innerHTML += `<h3>${formattedPlayerName}</h3>`;
-            for (let country of allocationResult[i]) {
-                resultDiv.innerHTML += `<p>${country}</p>`;
+            // Display the allocation result
+            resultDiv.innerHTML = "";
+            for (let i = 0; i < allocationResult.length; i++) {
+                const formattedPlayerName = `***${formattedPlayerNames[i].toUpperCase()}***`;
+                resultDiv.innerHTML += `<h3>${formattedPlayerName}</h3>`;
+                for (const country of allocationResult[i]) {
+                    resultDiv.innerHTML += `<p>${country}</p>`;
+                }
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML += `<br>`;
+                resultDiv.innerHTML += `<br>`;
             }
             resultDiv.style.display = 'block';
-            resultDiv.innerHTML += `<br>`;
-            resultDiv.innerHTML += `<br>`;
-        }
-        resultDiv.style.display = 'block';
-        socialDiv.style.display = 'block'; // Displat the #social div
-        resetbutton.style.display = 'block';
+            socialDiv.style.display = 'block'; // Display the #social div
+            resetbutton.style.display = 'block';
 
-        if (isMobileDevice) {
-            secondSection.style.display = 'none';
-        }
+            // Hide the secondSection if isMobileDevice is true
+            if (isMobileDevice) {
+                secondSection.style.display = 'none';
+            }
 
-        smoothScroll(resultDiv)
-    }).catch(error => {
-        console.error('Error reading CSV file:', error);
-        alert('Error reading CSV file. Please check the file path or URL.');
-    });
+            // Scroll to the resultDiv
+            smoothScroll(resultDiv)
+        })
+        .catch(error => {
+            console.error('Error reading CSV file:', error);
+            alert('Error reading CSV file. Please check the file path or URL.');
+        });
 }
 
-
+// Function to shuffle the elements of an array in-place
+// -----------------------------------------------------
+// This function takes an array as an argument and shuffles its elements
+// in a random order, utilizing the Fisher-Yates algorithm. The
+// shuffled array is returned as the output.
 function shuffleArray(array) {
+    // Iterate over the array from the last element to the second one
     for (let i = array.length - 1; i > 0; i--) {
+        
+        // Generate a random index j, ensuring it's within the array bounds
         const j = Math.floor(Math.random() * (i + 1));
+        
+        // Swap elements at indices i and j
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
+// Function to allocate countries to players and generate display text
+// ------------------------------------------------------------------
+// This function takes an array of player names and an array of countries as input,
+// shuffles the countries array, and allocates countries to each player.
+// The allocation is based on dividing the total number of countries equally
+// among the players and distributing any remaining countries randomly.
+// The function returns an array of display texts for each player,
+// containing the country name, artist, song, and links to YouTube, Apple Music,
+// and Spotify, if available.
 function allocateCountriesBuilder(playerNames, countries) {
     let allocationResult = [];
 
-    // Assuming each country has a name, artist, and song
+    // Shuffle the countries array
     shuffleArray(countries);
 
     let totalCountries = countries.length;
     let countriesPerPlayer = Math.floor(totalCountries / playerNames.length);
     let surplusCountries = totalCountries % playerNames.length;
 
+    // Define image source paths
     let youtubePng = "resources/youtube.png";
     let appleMusicPng = "resources/apple_music.png";
     let spotifyPng = "resources/spotify.png";
@@ -183,6 +231,7 @@ function allocateCountriesBuilder(playerNames, countries) {
     for (let i = 0; i < playerNames.length; i++) {
         let endIndex = startIndex + countriesPerPlayer + (surplusCountries > 0 ? 1 : 0);
 
+        // Generate display text for each country allocated to the player
         allocationResult.push(countries.slice(startIndex, endIndex).map(country => {
             let displayText = `${country.name.toUpperCase().replace(/"/g, '')}<br>`;
             if (country.artist) {
@@ -190,10 +239,11 @@ function allocateCountriesBuilder(playerNames, countries) {
             }
             if (country.song) {
                 displayText += `: ${country.song.replace(/"/g, '')}`;
-
             }
             displayText += "<br>";
-            if  (country.youtube !== "") {
+
+            // Add links to YouTube, Apple Music, and Spotify, if available
+            if (country.youtube !== "") {
                 displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>`;
             }
             if (country.appleMusic !== "") {
@@ -202,6 +252,8 @@ function allocateCountriesBuilder(playerNames, countries) {
             if (country.spotify !== "") {
                 displayText += `<a href="${country.spotify}" target="_blank"><img src=${spotifyPng} /></a>`;
             }
+
+            // Return the trimmed display text
             return displayText.trim();
         }));
 
@@ -211,6 +263,12 @@ function allocateCountriesBuilder(playerNames, countries) {
     return allocationResult;
 }
 
+// Function to read CSV data from a specified GitHub raw content URL
+// ---------------------------------------------------------------
+// This function takes a selected year as input and returns a Promise
+// that resolves with an array of arrays containing the parsed CSV data.
+// The function fetches the CSV file from the specified GitHub raw content URL,
+// parses the content, and removes the header row before resolving the Promise.
 function readCSVFromPath(selectedYear) {
     return new Promise((resolve, reject) => {
         // Specify the GitHub raw content URL for the selected year
@@ -218,17 +276,20 @@ function readCSVFromPath(selectedYear) {
 
         fetch(csvFilePath)
             .then(response => {
+                // If the response is not successful, throw an error
                 if (!response.ok) {
                     throw new Error(`Failed to fetch CSV file: ${response.statusText}`);
                 }
                 return response.text();
             })
             .then(data => {
+                // Parse the CSV data and remove the header row
                 let parsedData = parseCSV(data);
                 parsedData.shift();
                 resolve(parsedData);
             })
             .catch(error => {
+                // Reject the Promise with the error object
                 reject(error);
             });
     });
@@ -241,7 +302,7 @@ function parseCSV(csvText) {
     rows = rows.filter(row => row.trim() !== '');
 
     return rows.map(row => {
-        let columns = row.split(',');
+        let columns = row.split(';');
         return columns.map(column => column.trim());
     });
 }
@@ -295,7 +356,7 @@ function resetApp() {
 }
 
 function checkIfFinalists() {
-    let selectedYear = yearSelect.value;
+    let selectedYear = csvFileInput.value;
     readCSVFromPath(selectedYear).then(data => {
         console.log(data);
 
@@ -335,5 +396,5 @@ function escapeHtml(text) {
         "'": '&#39;'
     };
 
-    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
 }
