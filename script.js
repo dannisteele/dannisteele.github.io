@@ -120,13 +120,13 @@ function allocateCountries() {
 
             // Parse the CSV data and extract the required information
             let countries = data.map(row => ({
-                name: row[1].trim().replace(/"/g, ''),
-                artist: row[2].trim().replace(/"/g, ''),
-                song: row[3].trim().replace(/"/g, ''),
+                name: row[2].trim().replace(/"/g, ''),
+                artist: row[3].trim().replace(/"/g, ''),
+                song: row[4].trim().replace(/"/g, ''),
                 runningOrder: row[5].trim().replace(/"/g, ''),
-                youtube: row[14].trim().replace(/"/g, ''),
-                appleMusic: row[15].trim().replace(/"/g, ''),
-                spotify: row[16].trim().replace(/"/g, '')
+                youtube: row[11].trim().replace(/"/g, ''),
+                appleMusic: row[12].trim().replace(/"/g, ''),
+                spotify: row[13].trim().replace(/"/g, '')
             }));
 
             // Filter the countries based on the finalistsCheckbox status
@@ -295,18 +295,35 @@ function readCSVFromPath(selectedYear) {
     });
 }
 
-
+// Function to parse CSV text into an array of arrays
+// ------------------------------------------------
+// This function takes a CSV text string as input and returns an array of arrays
+// containing the parsed CSV data. The function first splits the input text
+// into rows using newline characters, filters out any empty rows, and then
+// maps each row to an array of columns by splitting the row using semicolon
+// characters. The function trims any leading or trailing whitespace from each
+// column before returning the final array of arrays.
 function parseCSV(csvText) {
     let rows = csvText.split('\n');
+
     // Filter out empty rows
     rows = rows.filter(row => row.trim() !== '');
 
     return rows.map(row => {
         let columns = row.split(';');
+
+        // Trim whitespace from each column
         return columns.map(column => column.trim());
     });
 }
 
+// Function to smoothly scroll to a target element with optional duration and easing
+// --------------------------------------------------------------------------
+// This function takes an element to scroll to, an optional duration for the scroll
+// animation, and an optional easing function. The function calculates the target
+// scroll position, defines a custom easing function, and uses requestAnimationFrame
+// to smoothly scroll to the target position. The default duration is 1200ms, and
+// the default easing function is 'easeInOutQuad'.
 function smoothScroll(element, duration = 1200, easing = 'easeInOutQuad') {
     const start = window.scrollY || window.pageYOffset;
     const target = element.getBoundingClientRect().top + start;
@@ -323,6 +340,7 @@ function smoothScroll(element, duration = 1200, easing = 'easeInOutQuad') {
         }
     }
 
+    // Define the custom easing function
     function easeInOutQuad(t, b, c, d) {
         t /= d / 2;
         if (t < 1) return c / 2 * t * t + b;
@@ -333,6 +351,7 @@ function smoothScroll(element, duration = 1200, easing = 'easeInOutQuad') {
     requestAnimationFrame(scroll);
 }
 
+// Function to reset the application to its initial state
 function resetApp() {
     // Reset the number of players input
     numOfPlayersInput.value = '';
