@@ -1,24 +1,5 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "/firebase/app";
-import { getAnalytics } from "/firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDoRo1f9n6QnN3COO0bYi1MCj3dR347PHM",
-  authDomain: "ultimate-eurovision.firebaseapp.com",
-  projectId: "ultimate-eurovision",
-  storageBucket: "ultimate-eurovision.appspot.com",
-  messagingSenderId: "122256875778",
-  appId: "1:122256875778:web:889087eeff74ce633c621b",
-  measurementId: "G-YHNSC82QCD"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 // Get DOM elements
 const numOfPlayersInput = document.getElementById('numOfPlayers');
