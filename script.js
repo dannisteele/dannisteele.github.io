@@ -1,3 +1,6 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 // Get DOM elements
 const numOfPlayersInput = document.getElementById('numOfPlayers');
 const playerNamesDiv = document.getElementById('playerNames');
@@ -16,6 +19,8 @@ const twitterLink = document.getElementById('twitterLink');
 
 // Check if the device is a mobile device
 const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+
+
 
 // Add event listener to numOfPlayersInput
 numOfPlayersInput.addEventListener('keyup', handleNumOfPlayersKeyUp);
@@ -193,10 +198,10 @@ function allocateCountries() {
 function shuffleArray(array) {
     // Iterate over the array from the last element to the second one
     for (let i = array.length - 1; i > 0; i--) {
-        
+
         // Generate a random index j, ensuring it's within the array bounds
         const j = Math.floor(Math.random() * (i + 1));
-        
+
         // Swap elements at indices i and j
         [array[i], array[j]] = [array[j], array[i]];
     }
@@ -416,4 +421,14 @@ function escapeHtml(text) {
     };
 
     return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+}
+
+function newUser() {
+    const usernameInput = document.getElementById("usernameInputField");
+    const passwordInput = document.getElementById("passwordInputField");
+    database.ref('users/' + usernameInput.value).set({
+        username: usernameInput.value,
+        password: passwordInput.value
+    })
+    alert("Saved");
 }
