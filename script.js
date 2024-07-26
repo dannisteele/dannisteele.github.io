@@ -1,25 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "/firebase/app";
-import { getAnalytics } from "/firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDoRo1f9n6QnN3COO0bYi1MCj3dR347PHM",
-  authDomain: "ultimate-eurovision.firebaseapp.com",
-  projectId: "ultimate-eurovision",
-  storageBucket: "ultimate-eurovision.appspot.com",
-  messagingSenderId: "122256875778",
-  appId: "1:122256875778:web:889087eeff74ce633c621b",
-  measurementId: "G-YHNSC82QCD"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 // Get DOM elements
 const numOfPlayersInput = document.getElementById('numOfPlayers');
 const playerNamesDiv = document.getElementById('playerNames');
@@ -38,8 +16,6 @@ const twitterLink = document.getElementById('twitterLink');
 
 // Check if the device is a mobile device
 const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
-
-
 
 // Add event listener to numOfPlayersInput
 numOfPlayersInput.addEventListener('keyup', handleNumOfPlayersKeyUp);
@@ -217,10 +193,10 @@ function allocateCountries() {
 function shuffleArray(array) {
     // Iterate over the array from the last element to the second one
     for (let i = array.length - 1; i > 0; i--) {
-
+        
         // Generate a random index j, ensuring it's within the array bounds
         const j = Math.floor(Math.random() * (i + 1));
-
+        
         // Swap elements at indices i and j
         [array[i], array[j]] = [array[j], array[i]];
     }
@@ -440,14 +416,4 @@ function escapeHtml(text) {
     };
 
     return text.replace(/[&<>"']/g, function (m) { return map[m]; });
-}
-
-function newUser() {
-    const usernameInput = document.getElementById("usernameInputField");
-    const passwordInput = document.getElementById("passwordInputField");
-    database.ref('users/' + usernameInput.value).set({
-        username: usernameInput.value,
-        password: passwordInput.value
-    })
-    alert("Saved");
 }
