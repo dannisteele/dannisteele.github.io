@@ -3,7 +3,7 @@ const numOfPlayersInput = document.getElementById('numOfPlayers');
 const playerNamesDiv = document.getElementById('playerNames');
 const resultDiv = document.getElementById('result');
 const socialDiv = document.getElementById('social');
-const resetbutton = document.getElementById('reset');
+const resetButton = document.getElementById('reset');
 const finalistsDiv = document.getElementById('finalists');
 const finalistsCheckbox = document.getElementById('finalistsCheckbox');
 const csvFileInput = document.getElementById('csvFileInput');
@@ -169,7 +169,7 @@ function allocateCountries() {
             }
             resultDiv.style.display = 'block';
             socialDiv.style.display = 'block'; // Display the #social div
-            resetbutton.style.display = 'block';
+            resetButton.style.display = 'block';
 
             // Hide the secondSection if isMobileDevice is true
             if (isMobileDevice) {
@@ -272,13 +272,13 @@ function allocateCountriesBuilder(playerNames, countries) {
 function readCSVFromPath(selectedYear) {
     return new Promise((resolve, reject) => {
         // Specify the GitHub raw content URL for the selected year
-        let csvFilePath = `https://raw.githubusercontent.com/dannisteele/Eurovision-allocator/main/Set_Lists/CSV/${selectedYear}.csv`;
+        let csvFilePath = 'https://raw.githubusercontent.com/dannisteele/Eurovision-allocator/main/Set_Lists/CSV/' + selectedYear + '.csv';
 
         fetch(csvFilePath)
             .then(response => {
                 // If the response is not successful, throw an error
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch CSV file: ${response.statusText}`);
+                    throw new Error('Failed to fetch CSV file: ' + response.statusText);
                 }
                 return response.text();
             })
@@ -364,7 +364,7 @@ function resetApp() {
     allocateDiv.style.display = 'none';
     resultDiv.style.display = 'none';
     socialDiv.style.display = 'none';
-    resetbutton.style.display = 'none';
+    resetButton.style.display = 'none';
     finalistsDiv.style.display = 'none';
 
     if (isMobileDevice) {
