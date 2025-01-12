@@ -3,7 +3,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #3f1c71;
+    background-color: #040241;
     text-align: center;
     box-sizing: border-box;
     display: flex;
@@ -19,7 +19,7 @@ h1 {
 }
 
 header {
-    background: #f8fb00;
+    background: #ff44e5;
     padding: inherit;
     border-radius: 30px;
     margin: auto auto 3em auto;
@@ -31,7 +31,7 @@ header {
     flex: 1;
     width: 60%;
     margin: 50px auto;
-    background-color: #da40d6;
+    background-color: #0fdad7;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -60,7 +60,7 @@ div#finalists {
 /* Button styles */
 button , .button{
     cursor: pointer;
-    background-color: #f8fb00;
+    background-color: #ff44e5;
     color: #000;
     border: none;
     border-radius: 4px;
@@ -124,7 +124,7 @@ input[type="text"], input[type="number"] {
 }
 
 #result {
-    color: #fff;
+    color: #111;
 }
 
 img {
