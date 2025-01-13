@@ -3,12 +3,13 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #040241;
+    background-color: #0fdad7;
     text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+	color: #ff44e5;
 }
 
 /* Heading style */
@@ -31,7 +32,7 @@ header {
     flex: 1;
     width: 60%;
     margin: 50px auto;
-    background-color: #0fdad7;
+    background-color: #040241;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -124,7 +125,7 @@ input[type="text"], input[type="number"] {
 }
 
 #result {
-    color: #111;
+    color: #ff44e5;
 }
 
 img {
