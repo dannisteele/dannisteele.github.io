@@ -222,9 +222,9 @@ function allocateCountriesBuilder(playerNames, countries) {
     let surplusCountries = totalCountries % playerNames.length;
 
     // Define image source paths
-    let youtubePng = "resources/youtube.png";
-    let appleMusicPng = "resources/apple_music.png";
-    let spotifyPng = "resources/spotify.png";
+    let youtubePng = "resources/youtube_colour.png";
+    let appleMusicPng = "resources/apple_music_colour.png";
+    let spotifyPng = "resources/spotify_colour.png";
 
     let startIndex = 0;
 
