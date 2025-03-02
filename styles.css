@@ -9,7 +9,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-	color: #ff44e5;
+    color: #ff44e5;
 }
 
 /* Heading style */
@@ -46,7 +46,9 @@ label {
 }
 
 /* Input and button styles */
-input, select, button {
+input,
+select,
+button {
     padding: 10px;
     margin-bottom: 20px;
     box-sizing: border-box;
@@ -59,7 +61,8 @@ div#finalists {
 }
 
 /* Button styles */
-button , .button{
+button,
+.button {
     cursor: pointer;
     background-color: #ff44e5;
     color: #000;
@@ -69,12 +72,14 @@ button , .button{
 }
 
 /* Button hover styles */
-button:hover, .button:hover {
+button:hover,
+.button:hover {
     background-color: #21c0dc;
 }
 
 /* Button click style */
-button:active, .button:active {
+button:active,
+.button:active {
     background-color: #17889c;
 }
 
@@ -98,10 +103,12 @@ button:active, .button:active {
 
 /* The allocate div */
 #allocate {
-    display: none; /* Hide the div initially */
+    display: none;
+    /* Hide the div initially */
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"],
+input[type="number"] {
     width: 15%;
     text-align: center;
 
@@ -128,6 +135,21 @@ input[type="text"], input[type="number"] {
     color: #ff44e5;
 }
 
+.country-box {
+    border: 2px solid white;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+}
+
+.flag-icon {
+    height: 20px;
+    width: auto;
+    margin: 0;
+}
+
 img {
     height: 30px;
     width: auto;
@@ -141,7 +163,7 @@ img {
 }
 
 #disclaimer a {
-    color:#FFFFE0;
+    color: #FFFFE0;
 }
 
 /* Footer styles */
@@ -168,10 +190,12 @@ footer {
     #playerNames input {
         width: 80%;
     }
+
     .container {
         max-width: 100%;
         width: 100%;
     }
+
     h1 {
         font-size: 1.5em;
     }
