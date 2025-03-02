@@ -192,11 +192,16 @@ footer {
     }
 
     .container {
-        max-width: 100%;
         width: 100%;
+        border-radius: 0;
+        margin: 0;
     }
 
     h1 {
         font-size: 1.5em;
+    }
+
+    .country-box {
+        border-color: #0fdad7;
     }
 }
