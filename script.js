@@ -193,10 +193,10 @@ function allocateCountries() {
 function shuffleArray(array) {
     // Iterate over the array from the last element to the second one
     for (let i = array.length - 1; i > 0; i--) {
-        
+
         // Generate a random index j, ensuring it's within the array bounds
         const j = Math.floor(Math.random() * (i + 1));
-        
+
         // Swap elements at indices i and j
         [array[i], array[j]] = [array[j], array[i]];
     }
@@ -221,7 +221,6 @@ function allocateCountriesBuilder(playerNames, countries) {
     let countriesPerPlayer = Math.floor(totalCountries / playerNames.length);
     let surplusCountries = totalCountries % playerNames.length;
 
-    // Define image source paths
     let youtubePng = "resources/youtube_colour.png";
     let appleMusicPng = "resources/apple_music_colour.png";
     let spotifyPng = "resources/spotify_colour.png";
@@ -231,30 +230,29 @@ function allocateCountriesBuilder(playerNames, countries) {
     for (let i = 0; i < playerNames.length; i++) {
         let endIndex = startIndex + countriesPerPlayer + (surplusCountries > 0 ? 1 : 0);
 
-        // Generate display text for each country allocated to the player
         allocationResult.push(countries.slice(startIndex, endIndex).map(country => {
-            let displayText = `${country.name.toUpperCase().replace(/"/g, '')}<br>`;
-            if (country.artist) {
-                displayText += `${country.artist.replace(/"/g, '')}`;
-            }
-            if (country.song) {
-                displayText += `: ${country.song.replace(/"/g, '')}`;
-            }
-            displayText += "<br>";
 
-            // Add links to YouTube, Apple Music, and Spotify, if available
-            if (country.youtube !== "") {
-                displayText += `<a href="${country.youtube}" target="_blank"><img src=${youtubePng} /></a>`;
+            // handle any special cases for flag names where country names have changed over time
+            let flagName = country.name;
+            if (flagName == 'Czechia') {
+                flagName = 'Czech_Republic';
+            } else if (flagName == 'Macedonia') {
+                flagName = 'North_Macedonia';
+            } else if (flagName == 'Turkiye') {
+                flagName = 'Turkey';
             }
-            if (country.appleMusic !== "") {
-                displayText += `<a href="${country.appleMusic}" target="_blank"><img src=${appleMusicPng} /></a>`;
-            }
-            if (country.spotify !== "") {
-                displayText += `<a href="${country.spotify}" target="_blank"><img src=${spotifyPng} /></a>`;
-            }
-
-            // Return the trimmed display text
-            return displayText.trim();
+            let flagPath = `resources/flags/white_border/${flagName.replaceAll(" ", "_")}.png`;
+            return `
+                <div class="country-box">
+                    <img src="${flagPath}" alt="${country.name}" class="flag-icon">
+                    <strong>${country.name.toUpperCase().replace(/"/g, '')}</strong><br>
+                    ${country.artist ? country.artist.replace(/"/g, '') + ':' : ''} 
+                    ${country.song ? country.song.replace(/"/g, '') : ''} <br>
+                    ${country.youtube ? `<a href="${country.youtube}" target="_blank"><img src="${youtubePng}" /></a>` : ''}
+                    ${country.appleMusic ? `<a href="${country.appleMusic}" target="_blank"><img src="${appleMusicPng}" /></a>` : ''}
+                    ${country.spotify ? `<a href="${country.spotify}" target="_blank"><img src="${spotifyPng}" /></a>` : ''}
+                </div>
+            `.trim();
         }));
 
         startIndex = endIndex;
